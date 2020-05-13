@@ -1,0 +1,35 @@
+<html lang="en">
+  <title>Caricamento</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/css-spinning-spinners/1.1.1/load8.css"
+  />
+  <style>
+    html,
+    body {
+      font-family: sans-serif;
+    }
+  </style>
+  <body>
+    <div id="root" style="padding: 24px; text-align: center;">
+      <div class="loading" />
+    </div>
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const id = urlParams.get('id');
+      fetch(`https://api.menu-qr.tech/view/${id}`)
+        .then((res) => {
+          if (res.ok) {
+            return res.json();
+          } else {
+            throw new Error('fail');
+          }
+        })
+        .then(({ url }) => window.location.replace(url))
+        .catch(
+          () =>
+            (document.getElementById('root').innerHTML = 'Errore caricamento'),
+        );
+    </script>
+  </body>
+</html>
