@@ -25,7 +25,10 @@
             throw new Error('fail');
           }
         })
-        .then(({ url }) => window.location.replace(url))
+        .then(({ url }) => {
+          console.log(url);
+          window.location.href = url;
+        })
         .catch(
           () =>
             (document.getElementById('root').innerHTML = 'Errore caricamento'),
