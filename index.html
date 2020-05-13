@@ -27,7 +27,7 @@
         })
         .then(({ url }) => {
           console.log(url);
-          window.location.href = url;
+          window.location.replace(url);
         })
         .catch(
           () =>
