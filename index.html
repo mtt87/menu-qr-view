@@ -19,15 +19,15 @@
       const id = urlParams.get('id');
       fetch(`https://api.menu-qr.tech/view/${id}`)
         .then((res) => {
-          if (res.ok) {
-            return res.json();
-          } else {
-            throw new Error('fail');
+          if (res.status === 403) {
+            document.getElementById('root').innerHTML = 'Abbonamento scaduto';
+            return;
           }
-        })
-        .then(({ url }) => {
-          console.log(url);
-          window.location.replace(url);
+          if (res.ok) {
+            res.json().then((json) => window.location.replace(json.url));
+            return;
+          }
+          throw new Error('fail');
         })
         .catch(
           () =>
